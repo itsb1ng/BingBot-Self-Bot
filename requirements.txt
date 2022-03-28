@@ -1,0 +1,5 @@
+discord.py-self
+discord
+requests
+playsound==1.2.2
+datetime

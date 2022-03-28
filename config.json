@@ -1,0 +1,8 @@
+{
+    "discord_token": "",
+    "prefix": "b!",
+    "webhook": "",
+    "api_key": "",
+    "discord_status": "online",
+    "startup": "standard"
+}
