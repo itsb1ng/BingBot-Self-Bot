@@ -3,3 +3,6 @@ discord
 requests
 playsound==1.2.2
 datetime
+discord.py-self-embed
+python-dotenv
+pytz

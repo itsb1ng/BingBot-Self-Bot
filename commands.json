@@ -1,4 +1,5 @@
 {
+	"commands": "Lists all available commands",
 	"pornhub": "Custom pornhub logo",
 	"servers": "Displays how many servers the user is in",
 	"friends": "Displays how many friends the user has",

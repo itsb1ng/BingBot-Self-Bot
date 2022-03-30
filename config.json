@@ -1,8 +1,13 @@
-{
+[{
     "discord_token": "",
+    "embed_mode": "on",
     "prefix": "b!",
-    "webhook": "",
+    "dm_webhook": "",
+    "nitro_webhook": "",
     "api_key": "",
     "discord_status": "online",
     "startup": "standard"
-}
+},
+{
+    "nitro": "on"
+}]
