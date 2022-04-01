@@ -612,6 +612,24 @@ try:
             bing_restart()
         except:
             pass
+
+    @bing.command()
+    async def playerdiscord(ctx, ign):
+        try:
+            user_name = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}").json()
+            link = f"https://api.slothpixel.me/api/players/{ign}"
+            data = getInfo(link)
+            user_discord = data['links']['DISCORD']
+
+            if EMBED_MODE.lower() == "on":
+                embed = discord_self_embed.Embed(f"{user_name['name']}",description=f"Discord: {user_discord}", colour="C98FFC",url="https://github.com/itsb1ng/BingBot-Self-Bot")
+                url = embed.generate_url(hide_url=True)
+                await ctx.send(url)
+            else:
+                await ctx.send(f"```\n\t\t{user_name['name']}\nDiscord: {user_discord}\n```")
+        except:
+            await ctx.send("`Invalid Enry!`")
+        
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)
 except:
