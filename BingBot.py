@@ -128,6 +128,10 @@ try:
         r = requests.get(call)
         return r.json()
 
+    def bing_restart():
+        python = sys.executable
+        os.execl(python, python, * sys.argv)
+
     @bing.event
     async def on_connect():
         print(f"Logged in as: {bing.user}\n")
@@ -506,8 +510,110 @@ try:
         embed_send = embed.generate_url(hide_url=True)
         await ctx.send(embed_send)
 
+    @bing.command()
+    async def pets(ctx, name):
+        if API_KEY != "":
+            try:
+                user_name = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{name}").json()
+                uuid = user_name["id"]
+                profile_link = f"https://api.hypixel.net/skyblock/profiles?key={API_KEY}&uuid={uuid}"
+                sb_data = getInfo(profile_link)
+                link = f"https://api.hypixel.net/player?key={API_KEY}&uuid={uuid}"
+                data = getInfo(link)
+                senither = f"https://hypixel-api.senither.com/v1/profiles/{uuid}?key={API_KEY}"
+                senither_data = getInfo(senither)
+                save = 9999999999999999999
+                for x in range(0, len(sb_data['profiles'])):
+                    for y in sb_data['profiles'][x]['members']:
+                        if uuid == y:
+                            difference = time.time() - sb_data['profiles'][x]['members'][y]['last_save']
+                            if difference < save:
+                                save = sb_data['profiles'][x]['members'][y]['last_save']
+                                profile_id = sb_data['profiles'][x]['profile_id']
+
+                for z in range(0,len(senither_data['data'])):
+                    if senither_data['data'][z]['id'] == profile_id:
+                        profile_num = z
+
+                profile_name = data['player']['stats']['SkyBlock']['profiles'][profile_id]["cute_name"]
+
+                PETS_LIST = []
+                if len(senither_data['data'][profile_num]['pets']) > 0:
+                    if EMBED_MODE.lower() == "on":
+                        for pet in range(0,10):
+                            PET = "{} {} (LVL {:.0f})".format(senither_data['data'][profile_num]['pets'][pet]['tier'],senither_data['data'][profile_num]['pets'][pet]['type'],senither_data['data'][profile_num]['pets'][pet]['level'])
+                            PETS_LIST.append(PET)
+                    else:
+                        for pet in range(len(senither_data['data'][profile_num]['pets'])):
+                            PET = "{} {} (LVL {:.0f})".format(senither_data['data'][profile_num]['pets'][pet]['tier'],senither_data['data'][profile_num]['pets'][pet]['type'],senither_data['data'][profile_num]['pets'][pet]['level'])
+                            PETS_LIST.append(PET)
+                    ALL_PETS = "\n".join(PETS_LIST)
+
+                    if EMBED_MODE.lower() == "on":
+                        embed = discord_self_embed.Embed(f"{name}'s Skyblock Pets",description="Active Profile: {}\n\n{}".format(profile_name, ALL_PETS),colour="C98FFC",url="https://github.com/itsb1ng/BingBot-Self-Bot")
+                        url = embed.generate_url(hide_url=True)
+                        await ctx.send(f"{url}")
+                    else:
+                        await ctx.send("```\n\t\t{}'s Skyblock Pets:\nActive Profile: {}\n\n{}```".format(name,profile_name, ALL_PETS))
+                else:
+                    if EMBED_MODE.lower() == "on":
+                        embed = discord_self_embed.Embed(f"{name} has no pets",description=f"Recent profile ({profile_name}) states user has no pets",colour="C98FFC",url="https://github.com/itsb1ng/BingBot-Self-Bot")
+                        url = embed.generate_url(hide_url=True)
+                        await ctx.send(f"{url}")
+                    else:
+                        await ctx.send(f"```{name} has no pets\nRecent profile ({profile_name}) states user has no pets```")
+            except:
+                if EMBED_MODE.lower() == "on":
+                    embed = discord_self_embed.Embed(f"Error: Invalid IGN or API Key",colour="C98FFC",url="https://github.com/itsb1ng/BingBot-Self-Bot")
+                    url = embed.generate_url(hide_url=True)
+                    await ctx.send(url)
+                else:
+                    await ctx.send("```\nError:\nInvalid IGN\n```")
+        else:
+            await ctx.send("`Invalid API Key`")
+
+    @bing.command()
+    async def nitro(ctx, option):
+        try:
+            if option.lower() == "on" or option.lower() == "off":
+                if option.lower() == "on" and config[1]['nitro'].lower() == "off":
+                    config.pop(1)
+                    decision = "on"
+                    decision_dict = {"nitro": "on"}
+                    regular_dict = config[0]
+                    dict_list = [regular_dict, decision_dict]
+                    out_file = open("config.json", "w")
+                    json.dump(dict_list, out_file)
+                    out_file.close()
+                    await ctx.send(f"`Nitro Sniper is now {decision}, BingBot Self-Bot will now restart`")
+                    bing_restart()
+                elif option.lower() == "off" and config[1]['nitro'].lower() == "on":
+                    config.pop(1)
+                    decision = "off"
+                    decision_dict = {"nitro": "off"}
+                    regular_dict = config[0]
+                    dict_list = [regular_dict, decision_dict]
+                    out_file = open("config.json", "w")
+                    json.dump(dict_list, out_file)
+                    out_file.close()
+                    await ctx.send(f"`Nitro Sniper is now {decision}, BingBot Self-Bot will now restart`")
+                    bing_restart()
+                else:
+                    await ctx.send(f"`Nitro Sniper is already {option.lower()}`")
+            else:
+                await ctx.send("`Invalid Enry!`")
+        except:
+            await ctx.send("`Invalid Enry!`")
+
+    @bing.command()
+    async def restart(ctx):
+        try:
+            await ctx.send("`BingBot Self-Bot is now restarting`")
+            bing_restart()
+        except:
+            pass
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)
 except:
     song("failedlogin")
-    print("Invalid Discord Token\n")
+    print("\nInvalid Discord Token\n")

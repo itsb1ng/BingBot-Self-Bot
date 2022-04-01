@@ -7,5 +7,9 @@
 	"hypixelstats": "Display a player's Hypixel Statistics",
 	"skills": "Check a player's Hypixel Skyblock Skills",
 	"weight": "Check a player's Hypixel Skyblock Weight",
-	"slayer": "Check a player's Hypixel Skyblock Slayer Level and XP"
+	"slayer": "Check a player's Hypixel Skyblock Slayer Level and XP",
+	"embed": "Create your own embed with url and title",
+	"pets": "List all player's Hypixel Skyblock Pets",
+	"nitro": "Toggle on/off the Nitro Sniper",
+	"restart": "Restart BingBot Self-Bot"
 }
