@@ -1,0 +1,13 @@
+(PREFIX)commands
+(PREFIX)pornhub (firstword) (secondword)
+(PREFIX)servers
+(PREFIX)friends 
+(PREFIX)selfpurge (integer)
+(PREFIX)hypixelstats (player ign)
+(PREFIX)skills (player ign)
+(PREFIX)weight (player ign)
+(PREFIX)slayer (player ign)
+(PREFIX)embed (url link) (text)
+(PREFIX)pets (player ign)
+(PREFIX)nitro (on/off)
+(PREFIX)restart
