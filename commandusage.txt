@@ -11,3 +11,6 @@
 (PREFIX)pets (player ign)
 (PREFIX)nitro (on/off)
 (PREFIX)restart
+(PREFIX)playerdiscord (player ign)
+(PREFIX)spamwebhook (webhook) (amount to spam)
+(PREFIX)deletewebhook (webhook)

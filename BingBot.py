@@ -629,7 +629,32 @@ try:
                 await ctx.send(f"```\n\t\t{user_name['name']}\nDiscord: {user_discord}\n```")
         except:
             await ctx.send("`Invalid Enry!`")
-        
+
+    @bing.command()
+    async def spamwebhook(ctx, webber, num="25"):
+        try:
+            webber_json = requests.get(webber).json()
+            webhook = Webhook.from_url(webber, adapter=RequestsWebhookAdapter())
+            MSG_LINK = "https://gaming-at-my.best/watch.php?video=4V051I.mp4"
+            embed = discord.Embed(title="ShitRatter.mp4", url=MSG_LINK,color=0xC98FFC)
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/953054084833878066/953843770456150026/IMG_0672.jpg")
+            embed.add_field(name="Use better obfuscation next time retard", value="Get beamed bitch")
+            await ctx.send(f"`{webber_json['name']} is now getting spammed`")
+            for x in range(0,int(num)):
+                webhook.send(username="BingBot On Top",avatar_url="https://i.imgur.com/sKwqOXE.png",embed=embed)
+                time.sleep(2)
+        except:
+            await ctx.send("`Could not spam webhook`")
+
+    @bing.command()
+    async def deletewebhook(ctx, webber):
+        try:
+            webber_json = requests.get(webber).json()
+            await ctx.send(f"`{webber_json['name']} has been nuked`")
+            os.system(f"curl -X DELETE {webber}")
+        except:
+            await ctx.send("`Webhook has already been nuked`")
+
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)
 except:

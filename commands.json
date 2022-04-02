@@ -11,5 +11,8 @@
 	"embed": "Create your own embed with url and title",
 	"pets": "List all player's Hypixel Skyblock Pets",
 	"nitro": "Toggle on/off the Nitro Sniper",
-	"restart": "Restart BingBot Self-Bot"
+	"restart": "Restart BingBot Self-Bot",
+	"playerdiscord": "View linked Discord, on Hypixel, of the player",
+	"spamwebhook": "Spam some shit ratters Discord Webhook",
+	"deletewebhook": "Delete a Discord Webhook"
 }
