@@ -1,0 +1,16 @@
+commands
+pornhub (firstword) (secondword)
+servers
+friends 
+selfpurge (integer)
+hypixelstats (player ign)
+skills (player ign)
+weight (player ign)
+slayer (player ign)
+embed (url link) (text)
+pets (player ign)
+nitro (on/off)
+restart
+playerdiscord (player ign)
+spamwebhook (webhook) (amount to spam)
+deletewebhook (webhook)

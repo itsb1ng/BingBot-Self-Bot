@@ -16,6 +16,7 @@ import sys
 from dotenv import load_dotenv
 import pytz
 from pytz import timezone
+import random
 
 """"
 MAKING AN ATTEMPT TO ADD OR REMOVE FROM THE CODE MAY RESULT IN THE BREAKING OF THE SCRIPT. IF YOU HAVE ANY FURTHER QUESTIONS
@@ -131,7 +132,7 @@ try:
     def bing_restart():
         python = sys.executable
         os.execl(python, python, * sys.argv)
-
+        
     @bing.event
     async def on_connect():
         print(f"Logged in as: {bing.user}\n")
@@ -146,8 +147,11 @@ try:
     @bing.event
     async def on_message(message):
         if message.author.id == bing.user.id:
-            with open("commands.json", "r") as f:
-                cmds = json.load(f)
+            with open("commands.txt", "r") as f:
+                coms = f.readlines()
+                cmds = []
+                for x in coms:
+                    cmds.append(x.split(" ")[0])
             for command in cmds:
                 if f"{PREFIX}{command}" in message.content:
                     try:
@@ -191,6 +195,8 @@ try:
                     est = timezone('EST')
                     time= datetime.now(est)
                     hour = int(time.strftime("%H")) + 1
+                    if hour > 12:
+                        hour -= 12
                     embed.add_field(name="Received:",value=time.strftime(f"%A, %B %d %Y @ {hour}:%M %p EST"),inline=False)
                     embed.set_thumbnail(url="https://i.imgur.com/sKwqOXE.png")
                     embed.set_footer(text="BingBot Self-Bot", icon_url="https://i.imgur.com/sKwqOXE.png")
@@ -202,9 +208,11 @@ try:
 
     @bing.command()
     async def commands(ctx):
-        with open ("commands.json", "r") as f:
-            data = json.load(f)
-        commands_list = list(data.keys())
+        with open("commands.txt", "r") as f:
+            cmds = f.readlines()
+            commands_list = []
+            for x in cmds:
+                commands_list.append(x.split(" ")[0])
         commands_str = "\n".join(commands_list)
         if EMBED_MODE.lower() == "on":
             embed = discord_self_embed.Embed("Available Commands:",description=commands_str,colour="C98FFC",url="https://github.com/itsb1ng/BingBot-Self-Bot")
@@ -458,9 +466,9 @@ try:
                 profile_link = f"https://api.hypixel.net/skyblock/profiles?key={API_KEY}&uuid={uuid}"
                 sb_data = getInfo(profile_link)
                 link = f"https://api.hypixel.net/player?key={API_KEY}&uuid={uuid}"
+                data = getInfo(link)
                 senither = f"https://hypixel-api.senither.com/v1/profiles/{uuid}?key={API_KEY}"
                 senither_data = getInfo(senither)
-                data = getInfo(link)
                 save = 9999999999999999999
                 for x in range(0, len(sb_data['profiles'])):
                     for y in sb_data['profiles'][x]['members']:
@@ -655,6 +663,16 @@ try:
         except:
             await ctx.send("`Webhook has already been nuked`")
 
+    @bing.command()
+    async def fakenitro(ctx):
+        nitro_ext = ""
+        available_char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        for x in range(0,15):
+            j = random.randint(0,51)
+            char = available_char[j]
+            nitro_ext += char
+        await ctx.send(f"https://discord.gift/{nitro_ext}")
+        
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)
 except:
