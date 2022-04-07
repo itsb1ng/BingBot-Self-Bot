@@ -1,16 +1,17 @@
-commands
-pornhub (firstword) (secondword)
-servers
-friends 
-selfpurge (integer)
-hypixelstats (player ign)
-skills (player ign)
-weight (player ign)
-slayer (player ign)
-embed (url link) (text)
-pets (player ign)
-nitro (on/off)
-restart
-playerdiscord (player ign)
-spamwebhook (webhook) (amount to spam)
-deletewebhook (webhook)
+commands = Lists all available commands
+pornhub (firstword) (secondword) = Custom pornhub logo
+servers = Displays how many servers the user is in
+friends = Displays how many friends the user has
+selfpurge (integer) = Purge your own messages
+hypixelstats (player ign) = Display a player's Hypixel Statistics
+skills (player ign) = Check a player's Hypixel Skyblock Skills
+weight (player ign) = Check a player's Hypixel Skyblock Weight
+slayer (player ign) = Check a player's Hypixel Skyblock Slayer Level and XP
+embed (url link) (text) = Create your own embed with url and title
+pets (player ign) = List all player's Hypixel Skyblock Pets
+nitro (on/off) = Toggle on/off the Nitro Sniper
+restart = Restart BingBot Self-Bot
+playerdiscord (player ign) = View linked Discord, on Hypixel, of the player
+spamwebhook (webhook) (amount to spam) = Spam some shit ratters Discord Webhook
+deletewebhook (webhook) = Delete a Discord Webhook
+fakenitro = Create a fake nitro gift
