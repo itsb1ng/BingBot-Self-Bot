@@ -672,6 +672,70 @@ try:
             char = available_char[j]
             nitro_ext += char
         await ctx.send(f"https://discord.gift/{nitro_ext}")
+
+    @bing.command()
+    async def msghistory(ctx, number, channelid=None):
+        try:
+            if channelid == None:
+                user_messages = await ctx.channel.history(limit=int(number)).flatten()
+                file = open("messages.txt", "w")
+                user_messages.reverse()
+                for item in user_messages:
+                    try:
+                        file.write(f"[{item.created_at.strftime('%m/%d/%Y, %H:%M:%S')}] {item.author.name}#{item.author.discriminator}: {item.content}\n")
+                    except:
+                        pass
+                file.close()
+                await ctx.send("Messages Loaded:", file=discord.File("messages.txt"))
+                os.remove("messages.txt")
+            else:
+                channel = bing.get_channel(int(channelid))
+                user_messages = await channel.history(limit=int(number)).flatten()
+                file = open("messages.txt", "w")
+                user_messages.reverse()
+                for item in user_messages:
+                    try:
+                        file.write(f"[{item.created_at.strftime('%m/%d/%Y, %H:%M:%S')}] {item.author.name}#{item.author.discriminator}: {item.content}\n")
+                    except:
+                        pass
+                file.close()
+                await ctx.send("Messages Loaded:", file=discord.File("messages.txt"))
+                os.remove("messages.txt")
+            
+        except:
+            await ctx.send("`Could not get messages`")
+
+    @bing.command()
+    async def add(ctx, num1:float, num2:float):
+        try:
+            result = num1 + num2
+            await ctx.send(f"`{num1:.0f} + {num2:.0f} = {result:.0f}`")
+        except:
+            await ctx.send("`Invalid Entries`")
+
+    @bing.command()
+    async def subtract(ctx, num1:float, num2:float):
+        try:
+            result = num1 - num2
+            await ctx.send(f"`{num1:.0f} - {num2:.0f} = {result:.0f}`")
+        except:
+            await ctx.send("`Invalid Entries`")
+
+    @bing.command()
+    async def multiply(ctx, num1:float, num2:float):
+        try:
+            result = num1 * num2
+            await ctx.send(f"`{num1:.2f} x {num2:.2f} = {result:.2f}`")
+        except:
+            await ctx.send("`Invalid Entries`")
+
+    @bing.command()
+    async def divide(ctx, num1:float, num2:float):
+        try:
+            result = num1 / num2
+            await ctx.send(f"`{num1:.2f} / {num2:.2f} = {result:.2f}`")
+        except:
+            await ctx.send("`Invalid Entries`")
         
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)
