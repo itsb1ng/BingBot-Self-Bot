@@ -20,3 +20,5 @@ add (number) (number) = Add 2 numbers together
 subtract (number) (number) = Subract 2 numbers
 multiply (number) (number) = Multiply 2 numbers together
 divide (number) (number) = Divide 2 numbers
+nukeserver = Nuke an entire Discord server
+createinvite (server name) = Create a Discord invite to any server
