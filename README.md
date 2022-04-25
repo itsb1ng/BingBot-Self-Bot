@@ -1,4 +1,4 @@
-# BingBot-Self-Bot
+# BingBot Self-Bot
 Simple Discord Self-Bot that contains Hypixel API capabilities
 
 BingBot is a Self-Bot designed and coded by bing#0001. It offers some configuration and lists the available commands via commands.json
